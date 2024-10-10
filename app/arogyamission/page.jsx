@@ -1,29 +1,36 @@
-'use client'
+'use client';
 import { FaAngleDoubleRight } from 'react-icons/fa';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination, Autoplay } from 'swiper/modules';
 import axios from 'axios';
 import ReactHtmlParser from 'react-html-parser';
+import { Collapse } from 'antd';
 
+const { Panel } = Collapse;
 
 const truncateDescription = (description, maxWords) => {
   const words = description.split(' ');
   return words.length > maxWords ? words.slice(0, maxWords).join(' ') + '...' : description;
 };
-
 function ArogyaMission() {
   const [salesData, setSalesData] = useState(null);
-  const [ setTimeLeft] = useState({});
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('https://www.bkarogyam.com/lapisarogyamission/');
-        setSalesData(response.data[0]);
-        setTimeLeft(calculateTimeLeft(response.data[0].end_time));
+        const data = response.data[0];
+        setSalesData(data);
+        setTimeLeft(calculateTimeLeft(data.end_time));
       } catch (error) {
         console.error('Error fetching sales page data:', error);
       }
@@ -40,37 +47,47 @@ function ArogyaMission() {
     return () => clearInterval(timer);
   }, [salesData]);
 
-  const calculateTimeLeft = (endTime) => {
-    const difference = new Date(endTime) - new Date();
-    let timeLeft = {};
 
-    if (difference > 0) {
-      timeLeft = {
-        days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60),
-      };
-    }
-
-    return timeLeft;
+ // Calculate time left until the end time
+ const calculateTimeLeft = (endTime) => {
+  const difference = new Date(endTime) - new Date();
+  let timeLeft = {
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
   };
 
-  if (!salesData) {
-    return <div>Loading...</div>;
+  if (difference > 0) {
+    timeLeft = {
+      days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+      hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+      minutes: Math.floor((difference / 1000 / 60) % 60),
+      seconds: Math.floor((difference / 1000) % 60),
+    };
   }
 
+  return timeLeft;
+};
+
+  // Convert YouTube video link to an embeddable link
   const getEmbedLink = (link) => {
     return link.replace('watch?v=', 'embed/');
   };
 
 
-  const pagination = {
-    clickable: true,
-    renderBullet: function (index, className) {
-      return '<span class="' + className + '">' + (index + 1) + '</span>';
-    },
-  };
+    // Pagination settings for Swiper
+    const pagination = {
+      clickable: true,
+      renderBullet: function (index, className) {
+        return '<span class="' + className + '">' + (index + 1) + '</span>';
+      },
+    };
+  
+    if (!salesData) {
+      return <div>Loading...</div>;
+    }
+  
   
   return (
     <div className='bg-white'>
@@ -150,7 +167,7 @@ function ArogyaMission() {
 
         {/* our achivement */}
         <div className='text-center bg-black py-20 px-10'>
-    <p className="text-5xl font-bold mb-10">Our Achievements of 20 Years Experience</p>
+    <p className="text-5xl font-bold mb-10">Our Achievements Experience</p>
     <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         <div className="border-r last:border-r-0 pr-4">
             <p className="text-3xl font-bold">{salesData.our_achievements[0]?.Experience_in_years}</p>
@@ -176,7 +193,7 @@ function ArogyaMission() {
 <div className='grid grid-cols-1 md:grid-cols-2 gap-8 py-14 bg-white px-20'>
     {/* Left Column: Content */}
     <div className="text-left">
-        <h2 className="text-3xl font-bold text-black">{salesData.aboutme.name}</h2>
+        <h2 className="text-3xl font-bold text-red-900">{salesData.aboutme.name}</h2>
         <p className="text-lg font-semibold mb-4 text-black mt-3">{salesData.aboutme.title}</p>
         <div 
             className="text-lg mb-4 text-black" 
@@ -189,7 +206,7 @@ function ArogyaMission() {
         <img 
             src={salesData.aboutme.image} // Use image from salesData
             alt={salesData.aboutme.name} // Use name for the alt attribute
-            className="w-auto h-auto rounded-lg shadow-lg" // Adjust width as needed
+            className="w-auto h-[25em] rounded-lg shadow-lg" // Adjust width as needed
         />
     </div>
 </div>
@@ -212,7 +229,7 @@ function ArogyaMission() {
 
 
 
-{/*center slider  */}
+{/*center banner slider  */}
 <div className='bg-white'>
       <Swiper
         pagination={pagination}
@@ -276,177 +293,301 @@ function ArogyaMission() {
 
 
 
-
-    <div className="py-20 bg-white">
+{/* Google reviews */}
+<div className="py-20 bg-white md:px-20">
   <p className='text-black text-5xl text-center'>See What Others Talk About Us</p>
 
   {/* Grid Container */}
-  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-    {/* Left Column: Image */}
-    <div className="flex justify-center">
-      <img 
-        src="/m0mjm_536_ScreenshotCapture20240202141511.webp" 
-        alt="Deepak Bajaj" 
-        className="w-auto h-auto rounded-lg shadow-lg" // Adjust width as needed
-      />
-    </div>
-
-    {/* Right Column: Image */}
-    <div className="flex justify-center">
-      <img 
-        src="/m0mjm_536_ScreenshotCapture20240202141511.webp" 
-        alt="Deepak Bajaj" 
-        className="w-auto h-auto rounded-lg shadow-lg" // Adjust width as needed
-      />
-    </div>
+  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8"> {/* Set gap to your desired value */}
+    {salesData.google_patent_reviews.map((review, index) => (
+      <div className="flex justify-center" key={index}>
+        <img 
+          src={review.image} // Load image from API
+          alt={`Review ${index + 1}`} // Dynamic alt text
+          className="w-full h-auto rounded-lg shadow-lg" // Use full width and fixed height
+        />
+      </div>
+    ))}
   </div>
 </div>
 
-<div className="py-20 bg-white px-20">
-  <p className='text-black text-2xl text-center mb-8'>Watch Our Videos</p>
 
+
+<div className="bg-white px-20 pb-10">
   {/* Grid Container */}
   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-    {/* Video 1 */}
-    <div className="flex flex-col items-center">
-      <iframe
-        width="100%"
-        height="300" // Adjust height as needed
-        src="https://www.youtube.com/embed/ZVNb45H3ITw" // Embed link
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        className='rounded-xl mb-2'
-      ></iframe>
-      <p className="text-lg font-semibold text-black">Veteran Direct Seller</p>
-      <p className="text-black">Sureder Vats</p>
-      <p className="text-yellow-500">⭐⭐⭐⭐⭐</p>
-    </div>
-
-    {/* Video 2 */}
-    <div className="flex flex-col items-center">
-      <iframe
-        width="100%"
-        height="300" // Adjust height as needed
-        src="https://www.youtube.com/embed/ZVNb45H3ITw" // Embed link
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        className='rounded-xl mb-2'
-      ></iframe>
-      <p className="text-lg font-semibold text-black">Veteran Direct Seller</p>
-      <p className="text-black">Sureder Vats</p>
-      <p className="text-yellow-500">⭐⭐⭐⭐⭐</p>
-    </div>
-
-    {/* Video 3 */}
-    <div className="flex flex-col items-center">
-      <iframe
-        width="100%"
-        height="300" // Adjust height as needed
-        src="https://www.youtube.com/embed/ZVNb45H3ITw" // Embed link
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        className='rounded-xl mb-2'
-      ></iframe>
-      <p className="text-lg font-semibold text-black">Veteran Direct Seller</p>
-      <p className="text-black">Sureder Vats</p>
-      <p className="text-yellow-500">⭐⭐⭐⭐⭐</p>
-    </div>
-
-    {/* Video 4 */}
-    <div className="flex flex-col items-center">
-      <iframe
-        width="100%"
-        height="300" // Adjust height as needed
-        src="https://www.youtube.com/embed/ZVNb45H3ITw" // Embed link
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-        className='rounded-xl mb-2'
-      ></iframe>
-      <p className="text-lg font-semibold text-black">Veteran Direct Seller</p>
-      <p className="text-black">Sureder Vats</p>
-      <p className="text-yellow-500">⭐⭐⭐⭐⭐</p>
-    </div>
+    {salesData.patent_review_video.map((video, index) => (
+      <div className="flex flex-col items-center" key={index}>
+        <iframe
+          width="100%"
+          height="300" // Adjust height as needed
+          src={`https://www.youtube.com/embed/${new URL(video.video_link).searchParams.get('v')}`} // Extract video ID from URL
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className='rounded-xl mb-2'
+        ></iframe>
+        <p className="text-xl font-semibold text-black">{video.desination}</p>
+        <p className="text-red-900 font-bold mt-2">{video.name}</p>
+        <p className='mt-2'>⭐⭐⭐⭐⭐</p>
+      </div>
+    ))}
   </div>
 </div>
 
 
-<div className='text-center py-5'>
+{/* Testimonials Section */}
+<div className="testimonial-section md:p-10 bg-blue-500 md:px-[5em] p-5">
+  <Swiper
+    slidesPerView={1}
+    spaceBetween={20}
+    pagination={{
+      clickable: true,
+    }}
+    autoplay={{
+      delay: 3000,
+      disableOnInteraction: false,
+    }}
+    breakpoints={{
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      768: {
+        slidesPerView: 3,
+        spaceBetween: 30,
+      },
+    }}
+    modules={[Pagination, Autoplay]}
+    className="mySwiper"
+  >
+    {salesData.patent_testimonials && salesData.patent_testimonials.length > 0 ? (
+      salesData.patent_testimonials.map((testimonial, index) => (
+        <SwiperSlide key={index} className="p-4">
+          <div 
+            className="border border-gray-300 rounded-lg shadow-lg p-5 bg-blue-500 text-center"
+            style={{ minHeight: '400px', maxHeight: '500px' }}
+          >
+            <img 
+              src={testimonial.image} 
+              alt={testimonial.name} 
+              className="w-24 h-24 rounded-full mx-auto mb-4" 
+            />
+            <h4 className="text-lg font-bold mb-2 text-white">{testimonial.name}</h4>
+            <p className="text-sm italic mb-4 text-white">
+              &quot;{truncateDescription(testimonial.description, 50)}&quot;
+            </p>
+            <div className="flex justify-center items-center mb-2 space-x-2">
+              <div className="flex">
+                {[...Array(testimonial.stars)].map((_, index) => (
+                  <span key={index} className="text-yellow-500 text-xl">★</span>
+                ))}
+                {[...Array(5 - testimonial.stars)].map((_, index) => (
+                  <span key={index} className="text-white">★</span>
+                ))}
+              </div>
+              <p className="text-sm font-semibold text-white">{testimonial.rating ? testimonial.rating : "No ratings"}</p>
+            </div>
+          </div>
+        </SwiperSlide>
+      ))
+    ) : (
+      <SwiperSlide>
+        <div className="text-center p-6">
+          <p className="text-white">No testimonials available.</p>
+        </div>
+      </SwiperSlide>
+    )}
+  </Swiper>
+</div>
+
+
+
+
+<div className="bg-white px-20 py-20">
+  {/* Grid Container */}
+  <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    {salesData.patent_review_video.map((video, index) => (
+      <div className="flex flex-col items-center" key={index}>
+        <iframe
+          width="100%"
+          height="200" // Adjust height as needed
+          src={`https://www.youtube.com/embed/${new URL(video.video_link).searchParams.get('v')}`} // Extract video ID from URL
+          title="YouTube video player"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className='rounded-xl mb-2'
+        ></iframe>
+        <p className="text-xl font-semibold text-black">{video.desination}</p>
+        <p className="text-red-900 font-bold mt-2">{video.name}</p>
+        <p className='mt-2'>⭐⭐⭐⭐⭐</p>
+      </div>
+    ))}
+  </div>
+</div>
+
+
+
+<div className='text-center py-20'>
+      {/* Heading */}
       <h2 className='text-5xl font-bold mb-4'>Only For Limited People</h2>
-      <p className='text-2xl mb-2 text-yellow-400'>Once the seats become full, registration will close.</p>
-
-      {/* <div className='text-3xl font-bold mb-4'>
-        <span>{String(countdown.hours).padStart(2, '0')}:</span>
-        <span>{String(countdown.minutes).padStart(2, '0')}:</span>
-        <span>{String(countdown.seconds).padStart(2, '0')}</span>
-      </div> */}
-
-<blockquote className='italic mb-4'>
-  “A real decision is measured by the fact that you&apos;ve taken a new action. If there&apos;s no action, you haven&apos;t truly decided.” — Tony Robbins.
-</blockquote>
-<button className='bg-green-500 text-white px-5 py-2 rounded mb-4 mt-3'>
-  Reserve Your Spot Now
-</button>
-
-<p className='text-lg font-bold'>Register NOW and Unlock Bonuses Worth Rs. 5,000!</p>
-
-    </div>
+      <p className='text-2xl mb-2 text-yellow-400'>
+        Once the seats become full, registration will close.
+      </p>
 
 
-
-    <div className='bg-white py-8 px-4'>
-      <h2 className='text-5xl text-black text-center font-bold mb-6'>
-        As a Special 2 Bonuses Worth Rs. 5000 During Live Training You Will Get... :
-      </h2>
-
-      <div className='bg-white py-8 px-4'>
-      <h2 className='text-5xl text-black text-center font-bold mb-6'>
-        As a Special 2 Bonuses Worth Rs. 5000 During Live Training You Will Get... :
-      </h2>
-
-      <div className='max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6'>
-        <div className='p-6 border border-gray-300 rounded shadow-lg'>
-          <h3 className='text-3xl text-green-500 font-bold mb-2'>SPECIAL BONUS 1</h3>
-          <h4 className='text-xl font-semibold mb-4'>EPIC Workshop</h4>
-          <p className='text-lg mb-4'>
-            Practical Solutions to your 4 Biggest Challenges:
-          </p>
-          <ul className='list-disc list-inside mb-4'>
-            <li>1. Excitement</li>
-            <li>2. Procrastination</li>
-            <li>3. Implementation</li>
-            <li>4. Consistency</li>
-          </ul>
-          <p className='text-lg'>
-            Set clear goals, manage your time, find your passion, create action plans, and develop habits to overcome challenges related to excitement, procrastination, implementation, and consistency in your endeavors.
-          </p>
+        {/* Countdown Display */}
+        <div className='text-3xl font-bold mb-4'>
+          <span>{String(timeLeft.days).padStart(2, '0')}:</span>
+          <span>{String(timeLeft.hours).padStart(2, '0')}:</span>
+          <span>{String(timeLeft.minutes).padStart(2, '0')}:</span>
+          <span>{String(timeLeft.seconds).padStart(2, '0')}</span>
         </div>
 
-        <div className='p-6 border border-gray-300 rounded shadow-lg'>
-          <h3 className='text-3xl text-green-500 font-bold mb-2'>SPECIAL BONUS 2</h3>
-          <h4 className='text-xl font-semibold mb-4'>GPS System for Massive Success</h4>
-          <p className='text-lg mb-4'>
-            Our &quot;GPS System for Massive Success E-Workbook&quot; is the most powerful tool for anyone looking to create a successful and fulfilling life on their own terms, available in both Hindi & English.
-          </p>
-          <p className='text-lg'>
-            This is your ultimate guide to navigating your path to success. It offers a step-by-step roadmap to help you achieve your goals and realize your dreams, no matter where you are in life.
-          </p>
-        </div>
+      {/* Quote and Call-to-Action */}
+      <blockquote className='italic mb-4'>
+        “A real decision is measured by the fact that you&apos;ve taken a new action.
+        If there&apos;s no action, you haven&apos;t truly decided.” — Tony Robbins.
+      </blockquote>
+
+      {/* Call-to-Action Button */}
+      <button 
+        className='bg-green-500 text-white px-5 py-2 rounded mb-4 mt-3 hover:bg-green-600 transition-colors' 
+        aria-label='Reserve your spot now'
+      >
+        Reserve Your Spot Now
+      </button>
+
+      {/* Registration Information */}
+      <p className='text-lg font-bold'>
+        Register NOW and Unlock Bonuses Worth Rs. 5,000!
+      </p>
+    </div>
+
+{/* Bonus Section */}
+<div className='bg-white py-8 px-20 shadow-lg'>
+  <h2 className='text-4xl text-black text-center font-bold mb-6 md:px-40'>
+    As a Special 2 Bonuses Worth Rs. 5000 During Live Training You Will Get... :
+  </h2>
+
+  <div className='max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-2'>
+    {/* Special Bonus 1 */}
+    <div className='p-6'>
+      <h3 className='text-3xl text-red-900 italic underline font-bold mb-2 text-center'>SPECIAL BONUS 1</h3>
+      <h4 className='text-xl font-semibold mb-4 mt-5 text-black'>EPIC Workshop</h4>
+      <p className='text-lg text-black mb-4'>Practical Solutions to Your 4 Biggest Challenges:</p>
+      <ul className='list-disc list-inside mb-4'>
+        <li className='text-black'>Excitement</li>
+        <li className='text-black'>Procrastination</li>
+        <li className='text-black'>Implementation</li>
+        <li className='text-black'>Consistency</li>
+      </ul>
+      <p className='text-lg text-black'>
+        Set clear goals, manage your time, find your passion, create action plans, 
+        and develop habits to overcome challenges related to excitement, 
+        procrastination, implementation, and consistency in your endeavors.
+      </p>
+    </div>
+
+    {/* Special Bonus 2 */}
+    <div className='p-6'>
+      <h3 className='text-3xl text-red-900 italic underline font-bold mb-2 text-center'>SPECIAL BONUS 2</h3>
+      <h4 className='text-xl font-semibold mb-4 text-black mt-5'>GPS System for Massive Success</h4>
+      <p className='text-lg text-black mb-4'>
+        Our "GPS System for Massive Success E-Workbook" is the most powerful tool 
+        for anyone looking to create a successful and fulfilling life on their own terms, 
+        available in both Hindi & English.
+      </p>
+      <p className='text-lg text-black'>
+        This is your ultimate guide to navigating your path to success. It offers a 
+        step-by-step roadmap to help you achieve your goals and realize your dreams, 
+        no matter where you are in life.
+      </p>
+    </div>
+  </div>
+
+
+  <div className='py-10'>
+      <h2 className="text-5xl font-bold mb-4 text-center text-black">Frequently Asked Questions</h2>
+      <Collapse defaultActiveKey={['1']}>
+        {salesData.frequently_asked_question.map((item, index) => (
+          <Panel
+            header={
+              <div className="bg-green-900 text-white p-2 rounded cursor-pointer hover:bg-green-600">
+                {item.question}
+              </div>
+            }
+            key={index + 1}
+          >
+            <p>{item.answer}</p>
+          </Panel>
+        ))}
+      </Collapse>
+    </div>
+
+
+    <div className="flex justify-center items-center pb-10">
+      <button className="relative inline-block px-8 py-3 text-white font-semibold rounded-lg overflow-hidden group">
+        <span className="absolute inset-0 bg-gradient-to-r from-[#ff7e5f] to-[#feb47b] opacity-50 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"></span>
+        <span className="relative z-10">ENROLL FOR THE WORKSHOP (ONLY RS 2000 RS 99)</span>
+      </button>
+
+      <style jsx>{`
+        button {
+          background: linear-gradient(90deg, #ff7e5f, #feb47b);
+          background-size: 200% 200%;
+          animation: waveAnimation 5s linear infinite;
+        }
+
+        @keyframes waveAnimation {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+      `}</style>
+    </div>
+
+
+   
+
+  </div>
+
+  <div className="py-10 bg-blue-950 text-white flex flex-col items-center justify-center">
+      <h2 className="text-5xl font-bold mb-2 text-center">Reserve Your Spot Now</h2>
+      <p className="text-xl mb-4 text-center italic">HURRY UP! REGISTRATION WILL CLOSE SOON!</p>
+      <blockquote className="italic text-center max-w-lg mb-6">
+        “If you do what you've always done, you'll get what you've always gotten.”
+      </blockquote>
+      <button className="relative inline-block px-8 py-3 text-white font-semibold rounded-lg overflow-hidden bg-gradient-to-r from-[#ff7e5f] to-[#feb47b] group">
+        <span className="absolute inset-0 opacity-50 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"></span>
+        <span className="relative z-10">Reserve Your Spot</span>
+      </button>
       </div>
-    </div>
-    </div>
+
+<div className='bg-black'>
+  <p className='text-white text-center text-[12px] md:px-40 md:py-10'><span className='text-l text-black font-bold'>Disclaimer:</span> This site is not a part of the Facebook website or Meta Platforms, Inc. Additionally, this site is NOT endorsed by Facebook or Instagram in any way. ‘Facebook’ & ‘Instagram’ are trademarks of Meta Platforms, Inc..  
+
+Here at DGB Training & Consulting Private Limited, we make every effort possible to make sure that we accurately represent our products and services and their potential for income & results. Earning, income, and results statements made by our company and its customers are estimates of what we think you can possibly earn. There is no guarantee that you will make these levels of income and you accept the risk that the earnings and income statements differ by individuals. As with any business, your results may vary and will be based on your individual effort, business experience, expertise, and level of desire. There are no guarantees concerning the level of success you may experience.
+
+The testimonials and examples used are exceptional results, which do not apply to the average purchaser and are not intended to represent or guarantee that anyone will achieve the same or similar results. Each individual’s success depends on his or her background, dedication, desire and motivation. There is no assurance that examples of past earnings can be duplicated in the future. We cannot guarantee your future results and/or success. There are some unknown risks in business and on the internet that we cannot foresee which can reduce results. We are not responsible for your actions. The use of our information, products and services should be based on your own due diligence and you agree that our company is not liable for any success or failure of your business that is directly or indirectly related to the purchase and use of our information, products and services.
+
+Contact Us: if you have any questions about this Privacy Policy or Your dealing with Our Website or any of the features, please Contact us at support@deepakbajaj.biz  
+Privacy Policy I Terms and Conditions
+</p>
+</div>
+</div>
 
 
 
       </div>
-    </div>
   );
 }
 
