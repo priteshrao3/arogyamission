@@ -6,8 +6,6 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination, Autoplay } from 'swiper/modules';
 import axios from 'axios';
-import { CaretRightOutlined } from '@ant-design/icons';
-import { Collapse, theme } from 'antd';
 import ReactHtmlParser from 'react-html-parser';
 
 
@@ -18,8 +16,7 @@ const truncateDescription = (description, maxWords) => {
 
 function ArogyaMission() {
   const [salesData, setSalesData] = useState(null);
-  const [timeLeft, setTimeLeft] = useState({});
-  const { token } = theme.useToken();
+  const [ setTimeLeft] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,14 +59,6 @@ function ArogyaMission() {
   if (!salesData) {
     return <div>Loading...</div>;
   }
-
-  const panelStyle = {
-    marginBottom: 24,
-    background: token.colorFillAlter,
-    borderRadius: token.borderRadiusLG,
-    border: 'none',
-  };
-
 
   const getEmbedLink = (link) => {
     return link.replace('watch?v=', 'embed/');
@@ -175,13 +164,14 @@ function ArogyaMission() {
 <div className='grid grid-cols-1 md:grid-cols-2 gap-8 py-14 bg-white px-20'>
     {/* Left Column: Content */}
     <div className="text-left">
-        <h2 className="text-3xl font-bold text-black">DEEPAK BAJAJ</h2>
-        <p className="text-lg font-semibold mb-4 text-black">Life & Transformation Coach, Corporate Trainer & Best Selling Author x5 Books</p>
-        <p className="text-lg mb-4 text-black">With over 550+ million social media views & 2.2 Million Plus Followers, I've been recognized as the Best Direct Selling & Entrepreneurship Coach in 2020 and 2022.</p>
-        <p className="text-lg mb-4 text-black">I'm acknowledged among the Top 5 Contributors to the Direct Selling industry by the Center of Excellence for Direct Selling in Academics & IDSA, with my achievements regularly featured in media.</p>
-        <p className="text-lg mb-4 text-black">I'm also the creator of UCY, a three-day life and business transformation event attended by thousands globally.</p>
-        <p className="text-lg mb-4 text-black">Additionally, I hold the title of International Master NLP Practitioner and have been a TEDx and Josh Talks Speaker three times.</p>
-    </div>
+    <h2 className="text-3xl font-bold text-black">DEEPAK BAJAJ</h2>
+    <p className="text-lg font-semibold mb-4 text-black">Life & Transformation Coach, Corporate Trainer & Best Selling Author x5 Books</p>
+    <p className="text-lg mb-4 text-black">With over 550+ million social media views & 2.2 Million Plus Followers, I&apos;ve been recognized as the Best Direct Selling & Entrepreneurship Coach in 2020 and 2022.</p>
+    <p className="text-lg mb-4 text-black">I&apos;m acknowledged among the Top 5 Contributors to the Direct Selling industry by the Center of Excellence for Direct Selling in Academics & IDSA, with my achievements regularly featured in media.</p>
+    <p className="text-lg mb-4 text-black">I&apos;m also the creator of UCY, a three-day life and business transformation event attended by thousands globally.</p>
+    <p className="text-lg mb-4 text-black">Additionally, I hold the title of International Master NLP Practitioner and have been a TEDx and Josh Talks Speaker three times.</p>
+</div>
+
 
     {/* Right Column: Image */}
     <div className="flex justify-center items-center">
@@ -408,14 +398,15 @@ function ArogyaMission() {
         <span>{String(countdown.seconds).padStart(2, '0')}</span>
       </div> */}
 
-      <blockquote className='italic mb-4'>
-        “A real decision is measured by the fact that you've taken a new action. If there's no action, you haven't truly decided.” — Tony Robbins.
-      </blockquote>
-      <button className='bg-green-500 text-white px-5 py-2 rounded mb-4 mt-3'>
-      Reserve Your Spot Now
-      </button>
-      
-      <p className='text-lg font-bold'>Register NOW and Unlock Bonuses Worth Rs. 5,000!</p>
+<blockquote className='italic mb-4'>
+  “A real decision is measured by the fact that you&apos;ve taken a new action. If there&apos;s no action, you haven&apos;t truly decided.” — Tony Robbins.
+</blockquote>
+<button className='bg-green-500 text-white px-5 py-2 rounded mb-4 mt-3'>
+  Reserve Your Spot Now
+</button>
+
+<p className='text-lg font-bold'>Register NOW and Unlock Bonuses Worth Rs. 5,000!</p>
+
     </div>
 
 
@@ -452,7 +443,7 @@ function ArogyaMission() {
           <h3 className='text-3xl text-green-500 font-bold mb-2'>SPECIAL BONUS 2</h3>
           <h4 className='text-xl font-semibold mb-4'>GPS System for Massive Success</h4>
           <p className='text-lg mb-4'>
-            Our "GPS System for Massive Success E-Workbook" is the most powerful tool for anyone looking to create a successful and fulfilling life on their own terms, available in both Hindi & English.
+            Our &quot;GPS System for Massive Success E-Workbook&quot; is the most powerful tool for anyone looking to create a successful and fulfilling life on their own terms, available in both Hindi & English.
           </p>
           <p className='text-lg'>
             This is your ultimate guide to navigating your path to success. It offers a step-by-step roadmap to help you achieve your goals and realize your dreams, no matter where you are in life.
