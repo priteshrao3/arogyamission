@@ -133,97 +133,86 @@ function ArogyaMission() {
 
         {/* testtt */}
         <div className='text-center py-5'>
-            <p className='px-40 p-5 text-center text-xl font-bold'>These nine points touch on various aspects from branding and content creation to prospecting, sales, and community building, all aimed at helping you achieve success in the network marketing field.</p>
-            <p className='text-center font-bold'>HURRY UP! ONLY FEW SEATS LEFT!</p>
-            <button className='bg-green-500 text-white px-5 py-1 rounded mb-4 mt-3'>Register Now ₹99</button>
+            {salesData?.achiveing?.[0]?.achiving_content ? (
+                <div 
+                    className='px-40 p-5 text-xl font-bold' 
+                    dangerouslySetInnerHTML={{ __html: salesData.achiveing[0].achiving_content }} 
+                />
+            ) : (
+                <p className='px-40 p-5 text-xl font-bold'>No content available.</p>
+            )}
+
+            <button className='bg-green-500 text-white px-5 py-1 rounded mb-4 mt-3'>
+                {salesData?.book_now_text || 'Book Now'}
+            </button>
         </div>
+        
 
         {/* our achivement */}
         <div className='text-center bg-black py-20 px-10'>
-            <p className="text-5xl font-bold mb-10">Our Achievements of 20 Years Experience</p>
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-                <div className="border-r last:border-r-0 pr-4">
-                    <p className="text-3xl font-bold">21 Years Experience</p>
-                </div>
-                <div className="border-r last:border-r-0 pr-4">
-                    <p className="text-3xl font-bold">21 Lakhs Students</p>
-                </div>
-                <div className="border-r last:border-r-0 pr-4">
-                    <p className="text-3xl font-bold">550+ Millions Social Media Views</p>
-                </div>
-                <div className="border-r last:border-r-0 pr-4">
-                    <p className="text-3xl font-bold">150+ Countries</p>
-                </div>
-                <div>
-                    <p className="text-3xl font-bold">09 Languages</p>
-                </div>
-            </div>
+    <p className="text-5xl font-bold mb-10">Our Achievements of 20 Years Experience</p>
+    <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+        <div className="border-r last:border-r-0 pr-4">
+            <p className="text-3xl font-bold">{salesData.our_achievements[0]?.Experience_in_years}</p>
         </div>
+        <div className="border-r last:border-r-0 pr-4">
+            <p className="text-3xl font-bold">{salesData.our_achievements[0]?.patent_treated}</p>
+        </div>
+        <div className="border-r last:border-r-0 pr-4">
+            <p className="text-3xl font-bold">{salesData.our_achievements[0]?.sticfied_patents}</p>
+        </div>
+        <div className="border-r last:border-r-0 pr-4">
+            <p className="text-3xl font-bold">{salesData.our_achievements[0]?.contries}</p>
+        </div>
+        <div>
+            <p className="text-3xl font-bold">{salesData.our_achievements[0]?.languages}</p>
+        </div>
+    </div>
+</div>
 
-  {/* bk chourasia */}
+
+
+ {/* About me */}
 <div className='grid grid-cols-1 md:grid-cols-2 gap-8 py-14 bg-white px-20'>
     {/* Left Column: Content */}
     <div className="text-left">
-    <h2 className="text-3xl font-bold text-black">DEEPAK BAJAJ</h2>
-    <p className="text-lg font-semibold mb-4 text-black">Life & Transformation Coach, Corporate Trainer & Best Selling Author x5 Books</p>
-    <p className="text-lg mb-4 text-black">With over 550+ million social media views & 2.2 Million Plus Followers, I&apos;ve been recognized as the Best Direct Selling & Entrepreneurship Coach in 2020 and 2022.</p>
-    <p className="text-lg mb-4 text-black">I&apos;m acknowledged among the Top 5 Contributors to the Direct Selling industry by the Center of Excellence for Direct Selling in Academics & IDSA, with my achievements regularly featured in media.</p>
-    <p className="text-lg mb-4 text-black">I&apos;m also the creator of UCY, a three-day life and business transformation event attended by thousands globally.</p>
-    <p className="text-lg mb-4 text-black">Additionally, I hold the title of International Master NLP Practitioner and have been a TEDx and Josh Talks Speaker three times.</p>
-</div>
-
-
-    {/* Right Column: Image */}
-    <div className="flex justify-center items-center">
-        <img 
-            src="/dr-brijesh-chaurasia.jpg" 
-            alt="Deepak Bajaj" 
-            className="w-auto h-auto rounded-lg shadow-lg" // Adjust width as needed
-        />
-    </div>
-</div>
-
-
-
-{/* jsgfdgj */}
- <div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-white px-20 pb-14'>
-    {/* Left Column: Content */}
-    <div className="text-left">
-    <img 
-            src="/WhatsAppImage20240719at15_i3nja_1125.jpg" 
-            alt="Deepak Bajaj" 
-            className="w-auto h-auto rounded-lg shadow-lg" // Adjust width as needed
+        <h2 className="text-3xl font-bold text-black">{salesData.aboutme.name}</h2>
+        <p className="text-lg font-semibold mb-4 text-black mt-3">{salesData.aboutme.title}</p>
+        <div 
+            className="text-lg mb-4 text-black" 
+            dangerouslySetInnerHTML={{ __html: salesData.aboutme.description }} // Render HTML description
         />
     </div>
 
     {/* Right Column: Image */}
     <div className="flex justify-center items-center">
         <img 
-            src="/WhatsAppImage20240719at15_i3nja_1125.jpg" 
-            alt="Deepak Bajaj" 
-            className="w-auto h-auto rounded-lg shadow-lg" // Adjust width as needed
-        />
-    </div>
-
-    {/* Left Column: Content */}
-    <div className="text-left">
-    <img 
-            src="/WhatsAppImage20240719at15_i3nja_1125.jpg" 
-            alt="Deepak Bajaj" 
-            className="w-auto h-auto rounded-lg shadow-lg" // Adjust width as needed
-        />
-    </div>
-
-    {/* Right Column: Image */}
-    <div className="flex justify-center items-center">
-        <img 
-            src="/WhatsAppImage20240719at15_i3nja_1125.jpg" 
-            alt="Deepak Bajaj" 
+            src={salesData.aboutme.image} // Use image from salesData
+            alt={salesData.aboutme.name} // Use name for the alt attribute
             className="w-auto h-auto rounded-lg shadow-lg" // Adjust width as needed
         />
     </div>
 </div>
 
+
+
+
+{/* Social Media Reviews */}
+<div className='grid grid-cols-1 md:grid-cols-2 gap-4 bg-white px-20 pb-14'>
+    {salesData.social_patent_reviews.map((review, index) => (
+        <div key={index} className="flex justify-center items-center">
+            <img 
+                src={review.image} // Dynamically load images from API
+                alt={`Social Review ${index + 1}`} // Use dynamic alt text
+                className="w-auto h-auto rounded-lg shadow-lg" // Adjust width and height as needed
+            />
+        </div>
+    ))}
+</div>
+
+
+
+{/*center slider  */}
 <div className='bg-white'>
       <Swiper
         pagination={pagination}
@@ -234,16 +223,15 @@ function ArogyaMission() {
         modules={[Pagination, Autoplay]}
         className="mySwiper"
       >
-      <SwiperSlide>
-          <img src="/Untitled.jpg" alt="Slide 1" className="w-full h-auto object-cover" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="/Untitled.jpg" alt="Slide 1" className="w-full h-auto object-cover" />
-        </SwiperSlide>
-
-        <SwiperSlide>
-          <img src="/Untitled.jpg" alt="Slide 1" className="w-full h-auto object-cover" />
-        </SwiperSlide>
+      {salesData.slider_image.map((imageData, index) => (
+      <SwiperSlide key={index}>
+        <img 
+          src={imageData.image} // Dynamically load images from API
+          alt={`Slide ${index + 1}`} // Use dynamic alt text
+          className="w-full h-auto object-cover" 
+        />
+      </SwiperSlide>
+    ))}
 
       </Swiper>
 
@@ -285,6 +273,8 @@ function ArogyaMission() {
         }
       `}</style>
     </div>
+
+
 
 
     <div className="py-20 bg-white">
