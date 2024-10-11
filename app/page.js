@@ -6,7 +6,6 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination, Autoplay } from 'swiper/modules';
 import axios from 'axios';
-import ReactHtmlParser from 'react-html-parser';
 import { Collapse } from 'antd';
 
 const { Panel } = Collapse;
@@ -15,7 +14,10 @@ const truncateDescription = (description, maxWords) => {
   const words = description.split(' ');
   return words.length > maxWords ? words.slice(0, maxWords).join(' ') + '...' : description;
 };
-function ArogyaMission() {
+
+
+export default function Home() {
+
   const [salesData, setSalesData] = useState(null);
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -96,9 +98,11 @@ function ArogyaMission() {
           <span className='text-yellow-400'>{salesData.title}</span>
         </p>
 
-        <p className='text-2xl text-white font-bold text-center italic mt-5'>
-  {ReactHtmlParser(truncateDescription(salesData.heading))}
-</p>
+        <p
+  className="text-2xl text-white font-bold text-center italic mt-5"
+  dangerouslySetInnerHTML={{ __html: truncateDescription(salesData.heading) }}
+></p>
+
         
         <p className='text-sm md:px-40 text-white font-bold text-center italic mt-5'>
           {truncateDescription(salesData.sort_description)}
@@ -496,7 +500,7 @@ function ArogyaMission() {
       <h3 className='text-3xl text-red-900 italic underline font-bold mb-2 text-center'>SPECIAL BONUS 2</h3>
       <h4 className='text-xl font-semibold mb-4 text-black mt-5'>GPS System for Massive Success</h4>
       <p className='text-lg text-black mb-4'>
-        Our "GPS System for Massive Success E-Workbook" is the most powerful tool 
+        Our &quot;GPS System for Massive Success E-Workbook&quot; is the most powerful tool 
         for anyone looking to create a successful and fulfilling life on their own terms, 
         available in both Hindi & English.
       </p>
@@ -564,7 +568,7 @@ function ArogyaMission() {
       <h2 className="text-5xl font-bold mb-2 text-center">Reserve Your Spot Now</h2>
       <p className="text-xl mb-4 text-center italic">HURRY UP! REGISTRATION WILL CLOSE SOON!</p>
       <blockquote className="italic text-center max-w-lg mb-6">
-        “If you do what you've always done, you'll get what you've always gotten.”
+        &quot;If you do what you&apos;ve always done, you&apos;ll get what you&apos;ve always gotten.&apos;
       </blockquote>
       <button className="relative inline-block px-8 py-3 text-white font-semibold rounded-lg overflow-hidden bg-gradient-to-r from-[#ff7e5f] to-[#feb47b] group">
         <span className="absolute inset-0 opacity-50 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"></span>
@@ -590,5 +594,3 @@ Privacy Policy I Terms and Conditions
       </div>
   );
 }
-
-export default ArogyaMission;
