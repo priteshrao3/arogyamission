@@ -214,26 +214,27 @@ export default function Home() {
         </div>
 
         {/* About me */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:py-14 py-7 bg-white md:px-20 px-2">
-          {/* Right Column: Image (show on top for mobile views) */}
-          <div className="flex justify-center items-center order-1 md:order-none">
-            <img
-              src={salesData.aboutme.image} 
-              alt={salesData.aboutme.name}
-              className="w-auto h-[35em] rounded-lg shadow-lg"
-            />
-          </div>
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:py-14 py-7 bg-white md:px-20 px-2">
+  {/* Right Column: Image (show on top for mobile views) */}
+  <div className="flex justify-center items-center order-1 md:order-2">
+    <img
+      src={salesData.aboutme.image}
+      alt={salesData.aboutme.name}
+      className="w-auto h-[40em] rounded-lg shadow-lg"
+    />
+  </div>
 
-          {/* Left Column: Content (show below image on mobile views) */}
-          <div className="md:text-left text-center order-2 md:order-none">
-            <h2 className="text-3xl font-bold text-red-900">{salesData.aboutme.name}</h2>
-            <p className="text-lg font-semibold mb-4 text-black mt-3">{salesData.aboutme.title}</p>
-            <div
-              className="md:text-lg text-sm mb-4 px-3 text-black"
-              dangerouslySetInnerHTML={{ __html: salesData.aboutme.description }}
-            />
-          </div>
-        </div>
+  {/* Left Column: Content (show below image on mobile views) */}
+  <div className="md:text-left text-center order-2 md:order-1">
+    <h2 className="text-3xl font-bold text-red-900">{salesData.aboutme.name}</h2>
+    <p className="text-lg font-semibold mb-4 text-black mt-3">{salesData.aboutme.title}</p>
+    <div
+      className="md:text-lg text-sm mb-4 px-3 text-black"
+      dangerouslySetInnerHTML={{ __html: salesData.aboutme.description }}
+    />
+  </div>
+</div>
+
 
 
         {/* Social Media Reviews */}
@@ -337,12 +338,12 @@ export default function Home() {
 
     <div className="bg-white md:px-20 px-5 pb-10">
   {/* Grid Container */}
-  <div className="grid grid-cols-2 gap-4">
+  <div className="grid grid-cols-3 gap-4">
     {salesData.patent_review_video.map((video, index) => (
       <div className="flex flex-col items-center" key={index}>
         <iframe
           width="100%" // Ensure full width for responsiveness
-          height="200" // Adjusted for mobile views
+          height="250" // Adjusted for mobile views
           src={`https://www.youtube.com/embed/${new URL(video.video_link).searchParams.get('v')}`} 
           title="YouTube video player"
           frameBorder="0"
