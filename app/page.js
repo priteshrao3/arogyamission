@@ -111,8 +111,8 @@ export default function Home() {
             <button className='bg-green-500 text-white px-5 py-1 rounded mb-4 mt-3'>
               {salesData.book_now_text}
             </button>
-            <p className='text-2xl font-bold mb-2'>Date & Time - {salesData.seats_and_video_sections[0].datetime_remaining}</p>
-            <p className='md:text-xl text-sm font-bold'>{truncateDescription(salesData.sort_description, 30)}</p>
+            <p className='text-2xl font-bold mb-2 text-white'>Date & Time - {salesData.seats_and_video_sections[0].datetime_remaining}</p>
+            <p className='md:text-xl text-sm font-bold text-white'>{truncateDescription(salesData.sort_description, 30)}</p>
           </div>
 
           {/* Right Column with Embedded YouTube Video */}
@@ -427,14 +427,14 @@ export default function Home() {
 
 <div className='text-center md:py-20 py-10'>
       {/* Heading */}
-      <h2 className='md:text-5xl text-2xl font-bold mb-4'>Only For Limited People</h2>
+      <h2 className='md:text-5xl text-2xl font-bold mb-4 text-white'>Only For Limited People</h2>
       <p className='text-2xl mb-2 text-yellow-400'>
         Once the seats become full, registration will close.
       </p>
 
 
         {/* Countdown Display */}
-        <div className='text-3xl font-bold mb-4'>
+        <div className='text-3xl font-bold mb-4 text-white'>
           <span>{String(timeLeft.days).padStart(2, '0')}:</span>
           <span>{String(timeLeft.hours).padStart(2, '0')}:</span>
           <span>{String(timeLeft.minutes).padStart(2, '0')}:</span>
@@ -456,7 +456,7 @@ export default function Home() {
       </button>
 
       {/* Registration Information */}
-      <p className='text-lg font-bold'>
+      <p className='text-lg font-bold text-white'>
         Register NOW and Unlock Bonuses Worth Rs. 5,000!
       </p>
     </div>
