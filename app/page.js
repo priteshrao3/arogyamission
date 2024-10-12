@@ -111,8 +111,9 @@ export default function Home() {
             <button className='bg-green-500 text-white px-5 py-1 rounded mb-4 mt-3'>
               {salesData.book_now_text}
             </button>
-            <p className='text-2xl font-bold mb-2 text-white'>Date & Time - {salesData.seats_and_video_sections[0].datetime_remaining}</p>
-            <p className='md:text-xl text-sm font-bold text-white'>{truncateDescription(salesData.sort_description, 30)}</p>
+            <p className='text-2xl font-bold mb-5 text-white'>Date & Time - {salesData.seats_and_video_sections[0].datetime_remaining}</p>
+            <p className='text-sm font-bold text-white'dangerouslySetInnerHTML={{ __html: salesData.seats_and_video_sections[0].description }} />
+
           </div>
 
           {/* Right Column with Embedded YouTube Video */}
@@ -213,13 +214,13 @@ export default function Home() {
         </div>
 
         {/* About me */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:py-14 py-7 bg-white md:px-20 px-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:py-14 py-7 bg-white md:px-20 px-2">
           {/* Right Column: Image (show on top for mobile views) */}
           <div className="flex justify-center items-center order-1 md:order-none">
             <img
               src={salesData.aboutme.image} 
               alt={salesData.aboutme.name}
-              className="w-auto h-[25em] rounded-lg shadow-lg"
+              className="w-auto h-[35em] rounded-lg shadow-lg"
             />
           </div>
 
@@ -442,7 +443,7 @@ export default function Home() {
         </div>
 
       {/* Quote and Call-to-Action */}
-      <blockquote className='italic mb-4'>
+      <blockquote className='italic mb-4 text-white'>
         “A real decision is measured by the fact that you&apos;ve taken a new action.
         If there&apos;s no action, you haven&apos;t truly decided.” — Tony Robbins.
       </blockquote>
