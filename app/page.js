@@ -72,6 +72,7 @@ export default function Home() {
   return timeLeft;
 };
 
+
   // Convert YouTube video link to an embeddable link
   const getEmbedLink = (link) => {
     return link.replace('watch?v=', 'embed/');
@@ -428,85 +429,70 @@ export default function Home() {
 
 
 <div className='text-center md:py-20 py-10'>
+  {/* Check if salesData and time_count_down are defined and have data */}
+  {salesData?.time_count_down?.length > 0 && (
+    <>
       {/* Heading */}
-      <h2 className='md:text-5xl text-2xl font-bold mb-4 text-white'>Only For Limited People</h2>
+      <h2 className='md:text-5xl text-2xl font-bold mb-4 text-white'>
+        {salesData.time_count_down[0].title}
+      </h2>
+
       <p className='text-2xl mb-2 text-yellow-400'>
-        Once the seats become full, registration will close.
+        {salesData.time_count_down[0].heading}
       </p>
-
-
-        {/* Countdown Display */}
-        <div className='text-3xl font-bold mb-4 text-white'>
-          <span>{String(timeLeft.days).padStart(2, '0')}:</span>
-          <span>{String(timeLeft.hours).padStart(2, '0')}:</span>
-          <span>{String(timeLeft.minutes).padStart(2, '0')}:</span>
-          <span>{String(timeLeft.seconds).padStart(2, '0')}</span>
-        </div>
 
       {/* Quote and Call-to-Action */}
-      <blockquote className='italic mb-4 text-white'>
-        “A real decision is measured by the fact that you&apos;ve taken a new action.
-        If there&apos;s no action, you haven&apos;t truly decided.” — Tony Robbins.
+      <blockquote className='italic mb-4 text-white md:px-[15em]'>
+        {salesData.time_count_down[0].sort_description}
       </blockquote>
 
-      {/* Call-to-Action Button */}
-      <button 
-        className='bg-green-500 text-white px-5 py-2 rounded mb-4 mt-3 hover:bg-green-600 transition-colors' 
-        aria-label='Reserve your spot now'
-      >
-        Reserve Your Spot Now
-      </button>
+      {/* Countdown Display */}
+      <div className="text-3xl font-bold mb-4 text-white">
+        <span>{String(timeLeft.days).padStart(2, '0')}:</span>
+        <span>{String(timeLeft.hours).padStart(2, '0')}:</span>
+        <span>{String(timeLeft.minutes).padStart(2, '0')}:</span>
+        <span>{String(timeLeft.seconds).padStart(2, '0')}</span>
+      </div>
 
-      {/* Registration Information */}
-      <p className='text-lg font-bold text-white'>
+      {/* Book Now Button */}
+      <a
+        href={salesData.book_now_link}
+        className="bg-green-500 text-white px-5 py-2 rounded mb-4 mt-3 hover:bg-green-600 transition-colors"
+      >
+        {salesData.book_now_text}
+      </a>
+
+      <p className="text-lg font-bold text-white mt-4">
         Register NOW and Unlock Bonuses Worth Rs. 5,000!
       </p>
-    </div>
+    </>
+  )}
+</div>
 
 
 
 
-{/* Bonus Section */}
-<div className='bg-white py-8 md:px-20 px-2 shadow-lg'>
-  <h2 className='md:text-4xl text-2xl text-black text-center font-bold mb-6 md:px-40'>
-    As a Special 2 Bonuses Worth Rs. 5000 During Live Training You Will Get... :
-  </h2>
 
-  <div className='max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-2'>
-    {/* Special Bonus 1 */}
-    <div className='md:p-6 p-2'>
-      <h3 className='text-3xl text-red-900 italic underline font-bold mb-2 text-center'>SPECIAL BONUS 1</h3>
-      <h4 className='text-xl font-semibold mb-4 mt-5 text-black'>EPIC Workshop</h4>
-      <p className='text-lg text-black mb-4'>Practical Solutions to Your 4 Biggest Challenges:</p>
-      <ul className='list-disc list-inside mb-4'>
-        <li className='text-black'>Excitement</li>
-        <li className='text-black'>Procrastination</li>
-        <li className='text-black'>Implementation</li>
-        <li className='text-black'>Consistency</li>
-      </ul>
-      <p className='text-lg text-black'>
-        Set clear goals, manage your time, find your passion, create action plans, 
-        and develop habits to overcome challenges related to excitement, 
-        procrastination, implementation, and consistency in your endeavors.
-      </p>
-    </div>
+<div className="bg-white py-8 md:px-20 px-2 shadow-lg">
+      <h2 className="md:text-5xl text-2xl text-black text-center font-bold mb-6 md:px-40">
+        As Special Bonuses Worth During Live Training You Will Get... :
+      </h2>
 
-    {/* Special Bonus 2 */}
-    <div className='md:p-6 p-2'>
-      <h3 className='text-3xl text-red-900 italic underline font-bold mb-2 text-center'>SPECIAL BONUS 2</h3>
-      <h4 className='text-xl font-semibold mb-4 text-black mt-5'>GPS System for Massive Success</h4>
-      <p className='text-lg text-black mb-4'>
-        Our &quot;GPS System for Massive Success E-Workbook&quot; is the most powerful tool 
-        for anyone looking to create a successful and fulfilling life on their own terms, 
-        available in both Hindi & English.
-      </p>
-      <p className='text-lg text-black'>
-        This is your ultimate guide to navigating your path to success. It offers a 
-        step-by-step roadmap to help you achieve your goals and realize your dreams, 
-        no matter where you are in life.
-      </p>
-    </div>
-  </div>
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-2">
+        {salesData.special_bonus.map((bonus, index) => (
+          <div key={index} className="md:p-6 p-2">
+            <h3 className="text-3xl text-red-900 italic underline font-bold mb-2 text-center">
+              {bonus.title}
+            </h3>
+            <h4 className="text-xl font-semibold mb-4 text-black mt-5">{bonus.heading}</h4>
+            {bonus.description ? (
+              <p className="text-lg text-black mb-4">{bonus.description}</p>
+            ) : (
+              <p className="text-lg text-black mb-4">No description available.</p>
+            )}
+          </div>
+        ))}
+      </div>
 
 
   <div className='md:py-10 py-5'>
@@ -529,31 +515,14 @@ export default function Home() {
 
 
     <div className="flex justify-center items-center md:pb-10 md-2">
-      <button className="relative inline-block md:px-8 px-2 py-3 text-white font-semibold rounded-lg overflow-hidden group">
-        <span className="absolute inset-0 bg-gradient-to-r from-[#ff7e5f] to-[#feb47b] opacity-50 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"></span>
-        <span className="relative z-10">ENROLL FOR THE WORKSHOP (ONLY RS 2000 RS 99)</span>
-      </button>
+    <a
+        href={salesData.book_now_link}
+        className="bg-yellow-500 text-white md:px-[20em] py-2 rounded mb-4 mt-3 hover:bg-green-600 transition-colors"
+      >
+        {salesData.book_now_text}
+      </a>
+      </div>
 
-      <style jsx>{`
-        button {
-          background: linear-gradient(90deg, #ff7e5f, #feb47b);
-          background-size: 200% 200%;
-          animation: waveAnimation 5s linear infinite;
-        }
-
-        @keyframes waveAnimation {
-          0% {
-            background-position: 0% 50%;
-          }
-          50% {
-            background-position: 100% 50%;
-          }
-          100% {
-            background-position: 0% 50%;
-          }
-        }
-      `}</style>
-    </div>
   </div>
 
   <div className="md:py-10 py-5 px-5 md-px-0 bg-blue-950 text-white flex flex-col items-center justify-center">
