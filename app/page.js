@@ -163,21 +163,71 @@ export default function Home() {
         </div>
 
 
-        {/* testtt */}
-        <div className='text-center py-5'>
-            {salesData?.achiveing?.[0]?.achiving_content ? (
-                <div 
-                    className='md:px-40 md:p-5 md:text-xl font-bold' 
-                    dangerouslySetInnerHTML={{ __html: salesData.achiveing[0].achiving_content }} 
-                />
-            ) : (
-                <p className='md:px-40 p-5 text-xl font-bold'>No content available.</p>
-            )}
 
-            <button className='bg-green-500 text-white px-5 py-1 rounded mb-4 md:mt-3 mt-5'>
-                {salesData?.book_now_text || 'Book Now'}
-            </button>
+
+ {/* माइक्रोफ्रेंचाइज़ी प्रोग्राम Section */}
+ <div className='md:p-6 p-2 bg-blue-950 py-5'>
+  <ul className='list-none space-y-3 md:px-28 px-2 '>
+    {salesData.whatismicrofranchise.map((item, index) => (
+      <li key={index} className='flex items-start text-sm text-white'>
+        <div className="md:px-40">
+          <h1 className="text-4xl text-center mb-4">{item.title}:</h1> 
+          <p className="mt-5" dangerouslySetInnerHTML={{ __html: item.description }}></p>
         </div>
+      </li>
+    ))}
+  </ul>
+</div>
+
+
+
+{/* आपको क्या मिलेगा: Section */}
+<div className='md:p-6 p-2 bg-white py-5'>
+  <ul className='list-none space-y-6 px-2'>
+    {salesData.whatyougetfrom.map((item, index) => (
+      <li key={index} className='flex flex-col items-start text-sm text-black'> 
+        <div className="px-4 md:px-40">
+          <h1 className="text-4xl text-center mb-2">{item.title}:</h1>
+          <p className="mt-5  text-xl" dangerouslySetInnerHTML={{ __html: item.description }}></p>
+        </div>
+      </li>
+    ))}
+  </ul>
+</div>
+
+
+
+{/* testtt */}
+<div className='text-center py-5'>
+    {salesData?.achiveing?.[0]?.achiving_content ? (
+        <div 
+            className='md:px-40 md:p-5 md:text-xl font-bold' 
+            dangerouslySetInnerHTML={{ __html: salesData.achiveing[0].achiving_content }} 
+        />
+    ) : (
+        <p className='md:px-40 p-5 text-xl font-bold'>No content available.</p>
+    )}
+
+    <button className='bg-green-500 text-white px-5 py-1 rounded mb-4 md:mt-3 mt-5'>
+        {salesData?.book_now_text || 'Book Now'}
+    </button>
+</div>
+
+
+
+<div className='md:p-6 p-2 bg-white py-5'>
+  <ul className='list-none space-y-3 md:px-28 px-2'>
+    {salesData.whosattend.map((item, index) => (
+      <li key={index} className='flex items-start text-sm text-black'>
+        <div className="md:px-40">
+          <h1 className="text-4xl text-center mb-4">{item.title}:</h1> 
+          <p className="mt-5" dangerouslySetInnerHTML={{ __html: item.description }}></p>
+        </div>
+      </li>
+    ))}
+  </ul>
+</div>
+
         
 
         {/* our achivement */}
@@ -187,27 +237,27 @@ export default function Home() {
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
             <div className="border-r last:border-r-0 pr-4">
-              <p className="text-2xl md:text-3xl font-bold text-white">
+              <p className="text-xl md:text-3xl font-bold text-white">
                 {salesData.our_achievements[0]?.Experience_in_years}
               </p>
             </div>
             <div className="border-r last:border-r-0 pr-4">
-              <p className="text-2xl md:text-3xl font-bold text-white">
+              <p className="text-xl md:text-3xl font-bold text-white">
                 {salesData.our_achievements[0]?.patent_treated}
               </p>
             </div>
             <div className="border-r last:border-r-0 pr-4">
-              <p className="text-2xl md:text-3xl font-bold text-white">
+              <p className="text-xl md:text-3xl font-bold text-white">
                 {salesData.our_achievements[0]?.sticfied_patents}
               </p>
             </div>
             <div className="border-r last:border-r-0 pr-4">
-              <p className="text-2xl md:text-3xl font-bold text-white">
+              <p className="text-xl md:text-3xl font-bold text-white">
                 {salesData.our_achievements[0]?.contries}
               </p>
             </div>
             <div>
-              <p className="text-2xl md:text-3xl font-bold text-white">
+              <p className="text-xl md:text-3xl font-bold text-white">
                 {salesData.our_achievements[0]?.languages}
               </p>
             </div>
@@ -215,26 +265,26 @@ export default function Home() {
         </div>
 
         {/* About me */}
-<div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:py-14 py-7 bg-white md:px-20 px-2">
-  {/* Right Column: Image (show on top for mobile views) */}
-  <div className="flex justify-center items-center order-1 md:order-2">
-    <img
-      src={salesData.aboutme.image}
-      alt={salesData.aboutme.name}
-      className="w-auto h-[40em] rounded-lg shadow-lg"
-    />
-  </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:py-14 py-7 bg-white md:px-20 px-2">
+          {/* Right Column: Image (show on top for mobile views) */}
+          <div className="flex justify-center items-center order-1 md:order-2">
+            <img
+              src={salesData.aboutme.image}
+              alt={salesData.aboutme.name}
+              className="w-auto h-auto rounded-lg shadow-lg"
+            />
+          </div>
 
-  {/* Left Column: Content (show below image on mobile views) */}
-  <div className="md:text-left text-center order-2 md:order-1">
-    <h2 className="text-3xl font-bold text-red-900">{salesData.aboutme.name}</h2>
-    <p className="text-lg font-semibold mb-4 text-black mt-3">{salesData.aboutme.title}</p>
-    <div
-      className="md:text-lg text-sm mb-4 px-3 text-black"
-      dangerouslySetInnerHTML={{ __html: salesData.aboutme.description }}
-    />
-  </div>
-</div>
+          {/* Left Column: Content (show below image on mobile views) */}
+          <div className="md:text-left text-center order-2 md:order-1">
+            <h2 className="text-3xl font-bold text-red-900">{salesData.aboutme.name}</h2>
+            <p className="text-lg font-semibold mb-4 text-black mt-3">{salesData.aboutme.title}</p>
+            <div
+              className="md:text-lg text-sm mb-4 px-3 text-black"
+              dangerouslySetInnerHTML={{ __html: salesData.aboutme.description }}
+            />
+          </div>
+        </div>
 
 
 
@@ -428,7 +478,7 @@ export default function Home() {
 </div>
 
 
-<div className='text-center md:py-20 py-10'>
+<div className='text-center md:py-20 py-10 px-3 md:px-0'>
   {/* Check if salesData and time_count_down are defined and have data */}
   {salesData?.time_count_down?.length > 0 && (
     <>
@@ -517,7 +567,7 @@ export default function Home() {
     <div className="flex justify-center items-center md:pb-10 md-2">
     <a
         href={salesData.book_now_link}
-        className="bg-yellow-500 text-white md:px-[20em] py-2 rounded mb-4 mt-3 hover:bg-green-600 transition-colors"
+        className="bg-yellow-500 text-white md:px-[20em] px-[5em] py-2 rounded mb-4 mt-3 hover:bg-green-600 transition-colors"
       >
         {salesData.book_now_text}
       </a>
@@ -531,27 +581,21 @@ export default function Home() {
       <blockquote className="italic text-center max-w-lg mb-6">
         &quot;If you do what you&apos;ve always done, you&apos;ll get what you&apos;ve always gotten.&apos;
       </blockquote>
-      <button className="relative inline-block px-8 py-3 text-white font-semibold rounded-lg overflow-hidden bg-gradient-to-r from-[#ff7e5f] to-[#feb47b] group">
+      <button className="relative inline-block px-8 py-3 text-white font-semibold rounded-lg overflow-hidden bg-gradient-to-r from-[#ff7e5f] to-[#feb47b] group" onClick={() => { window.location.href = salesData.book_now_link; }}>
         <span className="absolute inset-0 opacity-50 group-hover:opacity-100 transition-opacity duration-300 ease-in-out"></span>
-        <span className="relative z-10">Reserve Your Spot</span>
+        <span className="relative z-10">{salesData.book_now_text}</span>
       </button>
       </div>
 
-<div className='bg-black'>
-  <p className='text-white text-center md:text-[12px] text-[7px] md:px-40 px-2 md:py-10 py-3'><span className='text-l text-black font-bold'>Disclaimer:</span> This site is not a part of the Facebook website or Meta Platforms, Inc. Additionally, this site is NOT endorsed by Facebook or Instagram in any way. ‘Facebook’ & ‘Instagram’ are trademarks of Meta Platforms, Inc..  
-
-Here at DGB Training & Consulting Private Limited, we make every effort possible to make sure that we accurately represent our products and services and their potential for income & results. Earning, income, and results statements made by our company and its customers are estimates of what we think you can possibly earn. There is no guarantee that you will make these levels of income and you accept the risk that the earnings and income statements differ by individuals. As with any business, your results may vary and will be based on your individual effort, business experience, expertise, and level of desire. There are no guarantees concerning the level of success you may experience.
-
-The testimonials and examples used are exceptional results, which do not apply to the average purchaser and are not intended to represent or guarantee that anyone will achieve the same or similar results. Each individual’s success depends on his or her background, dedication, desire and motivation. There is no assurance that examples of past earnings can be duplicated in the future. We cannot guarantee your future results and/or success. There are some unknown risks in business and on the internet that we cannot foresee which can reduce results. We are not responsible for your actions. The use of our information, products and services should be based on your own due diligence and you agree that our company is not liable for any success or failure of your business that is directly or indirectly related to the purchase and use of our information, products and services.
-
-Contact Us: if you have any questions about this Privacy Policy or Your dealing with Our Website or any of the features, please Contact us at support@deepakbajaj.biz  
-Privacy Policy I Terms and Conditions
-</p>
-</div>
-</div>
-
+      <div className='bg-black'>
+        {salesData.disclammer && salesData.disclammer.length > 0 && (
+          <p className='text-sm text-white text-center p-10 md:px-10 px-5' 
+            dangerouslySetInnerHTML={{ __html: salesData.disclammer.map(item => item.disclammer).join(' ') }} />
+        )}
+      </div>
 
 
       </div>
+    </div>
   );
 }
