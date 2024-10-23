@@ -230,10 +230,36 @@ export default function Home() {
 
         
 
+         {/* About me */}
+         <h1 className="text-white text-center md:text-3xl p-2">Our Mentor</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:py-14 py-7 bg-white md:px-20 px-2">
+          {/* Right Column: Image (show on top for mobile views) */}
+          <div className="flex justify-center items-center order-1 md:order-2">
+            <img
+              src={salesData.aboutme.image}
+              alt={salesData.aboutme.name}
+              className="w-auto h-auto rounded-lg shadow-lg"
+            />
+          </div>
+
+          {/* Left Column: Content (show below image on mobile views) */}
+          <div className="md:text-left text-center order-2 md:order-1">
+            <h2 className="text-3xl font-bold text-red-900">{salesData.aboutme.name}</h2>
+            <p className="text-lg font-semibold mb-4 text-black mt-3">{salesData.aboutme.title}</p>
+            <div
+              className="md:text-lg text-sm mb-4 px-3 text-black"
+              dangerouslySetInnerHTML={{ __html: salesData.aboutme.description }}
+            />
+          </div>
+        </div>
+
+
+
+
         {/* our achivement */}
         <div className="text-center bg-black md:py-20 py-10 md:px-10 px-5">
           <p className="md:text-5xl text-3xl font-bold mb-10 text-white">
-            Our Achievements Experience
+            Our Mentor Achievements
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-4">
             <div className="border-r last:border-r-0 pr-4">
@@ -264,27 +290,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* About me */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:py-14 py-7 bg-white md:px-20 px-2">
-          {/* Right Column: Image (show on top for mobile views) */}
-          <div className="flex justify-center items-center order-1 md:order-2">
-            <img
-              src={salesData.aboutme.image}
-              alt={salesData.aboutme.name}
-              className="w-auto h-auto rounded-lg shadow-lg"
-            />
-          </div>
-
-          {/* Left Column: Content (show below image on mobile views) */}
-          <div className="md:text-left text-center order-2 md:order-1">
-            <h2 className="text-3xl font-bold text-red-900">{salesData.aboutme.name}</h2>
-            <p className="text-lg font-semibold mb-4 text-black mt-3">{salesData.aboutme.title}</p>
-            <div
-              className="md:text-lg text-sm mb-4 px-3 text-black"
-              dangerouslySetInnerHTML={{ __html: salesData.aboutme.description }}
-            />
-          </div>
-        </div>
 
 
 
