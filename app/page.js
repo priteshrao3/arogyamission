@@ -244,10 +244,10 @@ export default function Home() {
 
           {/* Left Column: Content (show below image on mobile views) */}
           <div className="md:text-left text-center order-2 md:order-1">
-            <h2 className="text-3xl font-bold text-red-900">{salesData.aboutme.name}</h2>
-            <p className="text-lg font-semibold mb-4 text-black mt-3">{salesData.aboutme.title}</p>
+            <h2 className="text-3xl font-bold text-red-900 text-center">{salesData.aboutme.name}</h2>
+            <p className="text-2xl font-semibold mb-4 text-black mt-3 text-center">{salesData.aboutme.title}</p>
             <div
-              className="md:text-lg text-sm mb-4 px-3 text-black"
+              className="md:text-sm text-sm mb-4 px-5 text-black"
               dangerouslySetInnerHTML={{ __html: salesData.aboutme.description }}
             />
           </div>
