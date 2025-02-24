@@ -29,7 +29,7 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('https://www.main.bkarogyam.com/lapisarogyamission/');
+        const response = await axios.get('https://main.bkarogyam.com/lapisarogyamission/');
         const data = response.data[0];
         setSalesData(data);
         setTimeLeft(calculateTimeLeft(data.end_time));
